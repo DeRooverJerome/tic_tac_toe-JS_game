@@ -16,51 +16,47 @@ let restartButton = document.querySelector(".restart");
 let gameStillRun = true;
 let message = document.querySelector(".message");
 
-// Create the board
+// Creation board avec une classe cell et un id de l'index pour chaque cell
 
 function createBoard() {
-  playedCells.forEach((_cell, index) => {
+  message.textContent = `Welcome, ${current_Player} begin`;
+  playedCells.forEach((_, index) => {
     let cellElement = document.createElement("div");
     cellElement.classList.add("cell");
     cellElement.id = index;
-    cellElement.addEventListener("click", addGo);
+    cellElement.addEventListener("click", addPone);
     board.append(cellElement);
   });
 }
-
 createBoard();
 
-function addGo(e) {
-  const goDisplay = document.createElement("div");
-  goDisplay.classList.add(current_Player);
-  e.target.append(goDisplay);
+// Evenement au clic pour ajouter une div de classe circle ou cross
+
+function addPone(e) {
+  const PoneDisplay = document.createElement("div");
+  PoneDisplay.classList.add(current_Player);
+  e.target.append(PoneDisplay);
+  playedCells[e.target.id] = current_Player;
   current_Player = current_Player === "circle" ? "cross" : "circle";
-  message.textContent = `${current_Player} turn`;
-  e.target.removeEventListener("click", addGo);
-  checkScore();
+  message.textContent = `${current_Player}'s turn`;
+  e.target.removeEventListener("click", addPone);
+  checkWin();
 }
 
-function checkScore() {
-  const allCells = document.querySelectorAll(".cell");
-  winCombinations.forEach((array) => {
-    const circleWins = array.every((cell) =>
-      allCells[cell].firstChild?.classList.contains(".circle")
-    );
-    if (circleWins) {
-      message = `Circles Wins !`;
-      allCells.forEach((cell) => cell.replaceWith(cell.cloneNode(true)));
-      return;
-    }
-  });
+// Condition de victoire
 
-  winCombinations.forEach((array) => {
-    const crossWins = array.every((cell) =>
-      allCells[cell].firstChild?.classList.contains(".cross")
-    );
-    if (crossWins) {
-      message = `Cross Wins !`;
-      allCells.forEach((cell) => cell.replaceWith(cell.cloneNode(true)));
+function checkWin() {
+  for (const combination of winCombinations) {
+    const [a, b, c] = combination;
+    if (
+      playedCells[a] &&
+      playedCells[a] === playedCells[b] &&
+      playedCells[a] === playedCells[c]
+    ) {
+      message.textContent = `${playedCells[a]} wins!`;
+      gameStillRun = false;
       return;
     }
-  });
+  }
 }
+
