@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: bisque;
+    font-family: 'Young Serif';
+}
+
+.board{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    cursor: crosshair;
+    box-shadow: 1px 5px 20px 0px;
+}
+
+.cell{
+    width: 100px;
+    height: 100px;
+    background: url(./assets/liege-bg.jpg);
+    border: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 10px solid black;
+    box-sizing: border-box;
+  
+}
+
+.cross{
+    height: 50px;
+    width: 50px;
+    position: relative;
+    transform: rotate(45deg);
+}
+
+.cross:before, .cross::after{
+    content: '';
+    position: absolute;
+    background: black
+}
+
+.cross:before{
+    left: 50%;
+    width: 30%;
+    margin-left: -15%;
+    height: 100%;
+}
+.cross:after{
+    top: 50%;
+    height: 30%;
+    margin-top: -15%;
+    width: 100%;
+}
+
+.message{
+    background: url(./assets/blackboard.jpg) center;
+    font-family: 'Schoolbell', cursive;
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    border: 4px solid rgb(90, 25, 25);
+    color: white;
+    width: 250px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button{
+    height: 50px;
+    width: 100px;
+    border-radius: 20%;
+    border: 2px solid black;
+    color: white;
+    background-color: brown;
+}
+
+button:hover{
+    background-color: rgb(123, 33, 33);
+    color:white;
+    cursor: pointer;
+}
